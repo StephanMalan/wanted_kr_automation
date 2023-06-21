@@ -27,7 +27,7 @@ def prompt_user_for_config() -> Config:
 
     required_words: list[str] = []
     while True:
-        if not _prompt_question("  Would you like to add a required word [Y/N]: "):
+        if not _prompt_question("Would you like to add a required word"):
             break
         required_words.append(input("  Please enter your required word: "))
 
