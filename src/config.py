@@ -10,6 +10,7 @@ from pydantic import BaseModel
 class JobType(str, Enum):
     PYTHON = "899"
     JAVA = "660"
+    NODE = "518"
 
 
 class Config(BaseModel):

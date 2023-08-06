@@ -6,8 +6,8 @@ from spinners.spinners import Spinners  # type: ignore
 from termcolor.termcolor import colored
 from tqdm import tqdm
 
-CHECKMARK_ICON = colored("  ✔", "green")
-CROSS_ICON = colored("  ✖", "red")
+CHECKMARK_ICON = colored("  ✓", "light_green")
+CROSS_ICON = colored("  x", "red")
 
 
 class Spinner:

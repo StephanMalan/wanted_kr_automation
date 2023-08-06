@@ -24,7 +24,7 @@ def _make_request(
     method: str, url: str, json: dict[str, Any] | None = None, token: str | None = None
 ) -> dict[str, Any]:
     headers = {"Cookie": f"WWW_ONEID_ACCESS_TOKEN={token}"} if token else None
-    response = requests.request(method, url, json=json, headers=headers, timeout=10)
+    response = requests.request(method, url, json=json, headers=headers, timeout=20)
     if response.status_code != 200:
         raise RequestError(url, response.status_code, response.text)
     data: dict[str, Any] = response.json()

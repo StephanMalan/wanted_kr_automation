@@ -15,7 +15,7 @@ def retrieve_listings(config: Config, session_data: SessionData) -> list[int]:
     spinner = Spinner("Retrieving listings")
     try:
         with ThreadPoolExecutor() as executor:
-            results = executor.map(_retrieve_job_type_listings, config.searches.items(), repeat(session_data))
+            results = executor.map(_retrieve_job_listings, config.searches.items(), repeat(session_data))
             listings = list(set(list(chain.from_iterable(results))))
         if not listings:
             spinner.stop("No new listings found", successful=False)
@@ -62,13 +62,14 @@ def apply_to_listings(listings: list[int], session_data: SessionData) -> None:
         sys.exit(1)
 
 
-def _retrieve_job_type_listings(job_search: tuple[JobType, int], session_data: SessionData) -> list[int]:
+def _retrieve_job_listings(job_search: tuple[JobType, int], session_data: SessionData) -> list[int]:
     url = (
         f"{BASE_URL}/api/v4/jobs?{int(time.time())}"
         "&country=kr"
         f"&tag_type_id={job_search[0].value}"
         "&job_sort=job.latest_order"
         "&limit=100"
+        "&years=0"
         f"&years={job_search[1]}"
     )
     listings: list[int] = []
@@ -89,7 +90,8 @@ def _filter_listing(listing_id: int, config: Config, session_data: SessionData) 
             _bookmark(listing_id, session_data)
         return None
     details = data["job"]["detail"]
-    desc = f'{details["requirements"]}\n{details["main_tasks"]}\n{details["intro"]}\n{details["preferred_points"]}'
+    cats = ["requirements", "main_tasks", "intro", "preferred_points"]
+    desc = "\n".join(details[cat] for cat in cats)
     if any(bl_word in desc for bl_word in config.filter_words):
         return None
     if any(req_word in desc for req_word in config.required_words):
