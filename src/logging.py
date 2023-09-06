@@ -11,7 +11,7 @@ CROSS_ICON = colored("  x", "red")
 
 
 class Spinner:
-    load_icons = {"frames": [f"  {i} " for i in Spinners["dots"].value["frames"]]}
+    load_icons = {"frames": [f"  {i}" for i in Spinners["dots"].value["frames"]]}
 
     def __init__(self, text: str) -> None:
         self._spinner = Halo(text=text, interval=167)
