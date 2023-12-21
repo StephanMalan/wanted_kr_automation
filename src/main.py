@@ -7,6 +7,7 @@ if __name__ == "__main__":
     cfg = config.Config.load_from_file()
     if not cfg:
         cfg = user_input.prompt_user_for_config()
+        cfg.save_to_file()
 
     # Get session data
     if not cfg.check_token_validity():

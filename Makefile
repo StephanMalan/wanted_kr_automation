@@ -2,4 +2,9 @@ run:
 	python -m src.main
 
 lint:
-	ruff ./ && pylint ./src && mypy . --explicit-package-bases
+	poetry run ruff ./
+	poetry run pylint ./src
+	poetry run mypy . --explicit-package-bases
+
+install: 
+	poetry install
