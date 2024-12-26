@@ -2,5 +2,7 @@
 .mypy_cache
 .ruff_cache
 **/__pycache__
+**/.DS_Store
 
 config.json
+/cv
